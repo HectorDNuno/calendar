@@ -25,3 +25,48 @@ import chevron from "../assets/chevron.svg";
     </div>
   </div>
 </template>
+
+<style scoped lang="less">
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: antiquewhite;
+  border-radius: 5px 5px 0 0;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    .month {
+      h2 {
+        font-size: 32px;
+        font-weight: bolder;
+        letter-spacing: 5.5px;
+      }
+    }
+    .chevron {
+      user-select: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.5s;
+      &:hover {
+        background-color: rgb(243, 206, 158);
+      }
+      img {
+        width: 100%;
+        height: auto;
+        transform: translateX(2px);
+      }
+    }
+    .left-chevron {
+      transform: rotate(180deg);
+    }
+  }
+}
+</style>
