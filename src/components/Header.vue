@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject } from "vue";
+import { ref, inject, watch } from "vue";
 import chevron from "../assets/chevron.svg";
 
 const MONTHS = {
@@ -18,12 +18,25 @@ const MONTHS = {
 };
 
 const state = inject("store");
-const [_, month, __, year] = state.value.date.dateString.split(" ");
+const [_, month, __, year] = state.state.value.date.dateString.split(" ");
 
 const current = ref({
   month: MONTHS[month], //gets month full name from MONTHS object using month initials
   year,
 });
+
+watch(
+  () => state.state.value.date,
+  (updateDate) => {
+    const [_, month, __, year] = updateDate.dateString.split(" ");
+    current.value = {
+      month: MONTHS[month],
+      year,
+    };
+  }
+);
+
+const handleClick = (direction) => state.dispatch({ type: "updateDate", payload: { direction } });
 </script>
 
 <template>
@@ -35,7 +48,7 @@ const current = ref({
     </div>
 
     <div class="wrapper">
-      <div class="left-chevron chevron">
+      <div @click="handleClick" class="left-chevron chevron">
         <img :src="chevron" alt="left-chevron" />
       </div>
 
@@ -43,7 +56,7 @@ const current = ref({
         <h2>{{ current.month }}</h2>
       </div>
 
-      <div class="right-chevron chevron">
+      <div @click="handleClick('next-month')" class="right-chevron chevron">
         <img :src="chevron" alt="right-chevron" />
       </div>
     </div>
