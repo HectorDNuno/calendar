@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp, ref } from "vue";
+import "./style.css";
+import App from "./App.vue";
 
-createApp(App).mount('#app')
+const date = ref({
+  date: {
+    str: new Date(),
+    dateString: new Date().toDateString(),
+  },
+});
+
+createApp(App).provide("store", date).mount("#app");
