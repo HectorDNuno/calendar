@@ -49,8 +49,8 @@ const decrease = (month, year) => {
     obj.str = new Date(`${year}, ${month - 1}`);
     obj.dateString = new Date(`${year}, ${month - 1}`).toDateString();
   } else {
-    obj.str = new Date(`${year - 1}, 11`);
-    obj.dateString = new Date(`${year - 1}, 11`).toDateString();
+    obj.str = new Date(`${year - 1}, 12`);
+    obj.dateString = new Date(`${year - 1}, 12`).toDateString();
   }
 
   return obj;
