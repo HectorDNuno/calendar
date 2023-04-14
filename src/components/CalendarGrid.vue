@@ -11,7 +11,7 @@ const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     </div>
 
     <div class="date-grid">
-      <div class="date" v-for="date in range(31)">
+      <div class="date" v-for="date in 31">
         <div class="val">{{ date }}</div>
       </div>
     </div>
