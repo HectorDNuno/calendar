@@ -21,7 +21,7 @@ const state = inject("store");
 const [_, month, __, year] = state.value.date.dateString.split(" ");
 
 const current = ref({
-  month: MONTHS[month],
+  month: MONTHS[month], //gets month full name from MONTHS object using month initials
   year,
 });
 </script>
@@ -30,7 +30,7 @@ const current = ref({
   <div class="header">
     <div class="info">
       <div class="year">
-        <p>2023</p>
+        <p>{{ current.year }}</p>
       </div>
     </div>
 
@@ -40,7 +40,7 @@ const current = ref({
       </div>
 
       <div class="month">
-        <h2>April</h2>
+        <h2>{{ current.month }}</h2>
       </div>
 
       <div class="right-chevron chevron">
