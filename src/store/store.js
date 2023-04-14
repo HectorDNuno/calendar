@@ -6,3 +6,52 @@ export const state = ref({
     dateString: new Date().toDateString(),
   },
 });
+
+export const dispatch = (action) => {
+  const increase = (month, year) => {
+    const obj = {};
+
+    if (month !== 11) {
+      obj.str = new Date(`${year}-${month + 1}`);
+      obj.dateString = new Date(`${year}-${month + 1}`).toDateString();
+    } else {
+      obj.str = new Date(`${year + 1}-01`);
+      obj.dateString = new Date(`${year + 1}-01`).toDateString();
+    }
+
+    return obj;
+  };
+
+  const decrease = (month, year) => {
+    const obj = {};
+
+    if (month !== 0) {
+      obj.str = new Date(`${year}-${month - 1}`);
+      obj.dateString = new Date(`${year}-${month - 1}`).toDateString();
+    } else {
+      obj.str = new Date(`${year - 1}-12`);
+      obj.dateString = new Date(`${year - 1}-12`).toDateString();
+    }
+
+    return obj;
+  };
+
+  const updateDate = (date, payload) => {
+    const year = date.str.getFullYear();
+    const month = date.str.getMonth() + 1;
+    let newDate = {};
+
+    if (payload.direction === "next-month") {
+      newDate = increase(month, year);
+    } else {
+      newDate = decrease(month, year);
+    }
+
+    return newDate;
+  };
+
+  if (action.type === "updateDate") {
+    const newDate = updateDate(state.value.date, action.payload);
+    state.value = { ...state.value, date: newDate };
+  }
+};
