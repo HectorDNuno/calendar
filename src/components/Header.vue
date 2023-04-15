@@ -81,7 +81,7 @@ const handleClick = (direction) => state.dispatch({ type: "updateDate", payload:
   padding: 10px;
   background-color: var(--main);
   color: var(--red);
-  border-radius: 5px 5px 0 0;
+  border-radius: 10px 10px 0 0;
   .info {
     text-align: center;
   }
