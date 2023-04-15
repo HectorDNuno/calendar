@@ -1,6 +1,5 @@
 <script setup>
 import { ref, inject, watch } from "vue";
-import chevron from "../assets/chevron.svg";
 
 const MONTHS = {
   Jan: "January",
@@ -49,7 +48,13 @@ const handleClick = (direction) => state.dispatch({ type: "updateDate", payload:
 
     <div class="wrapper">
       <div @click="handleClick" class="left-chevron chevron">
-        <img :src="chevron" alt="left-chevron" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <path
+            id="chevron"
+            d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"
+          />
+        </svg>
       </div>
 
       <div class="month">
@@ -57,7 +62,13 @@ const handleClick = (direction) => state.dispatch({ type: "updateDate", payload:
       </div>
 
       <div @click="handleClick('next-month')" class="right-chevron chevron">
-        <img :src="chevron" alt="right-chevron" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <path
+            id="chevron"
+            d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"
+          />
+        </svg>
       </div>
     </div>
   </div>
@@ -68,13 +79,20 @@ const handleClick = (direction) => state.dispatch({ type: "updateDate", payload:
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: antiquewhite;
+  background-color: var(--main);
+  color: var(--red);
   border-radius: 5px 5px 0 0;
+  .info {
+    text-align: center;
+  }
   .wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
+    .chevron {
+      fill: var(--red);
+    }
     .month {
       h2 {
         font-size: 32px;
@@ -93,7 +111,7 @@ const handleClick = (direction) => state.dispatch({ type: "updateDate", payload:
       cursor: pointer;
       transition: background-color 0.5s;
       &:hover {
-        background-color: rgb(243, 206, 158);
+        background-color: var(--blue);
       }
       img {
         width: 100%;
