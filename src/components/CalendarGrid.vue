@@ -1,18 +1,44 @@
 <script setup>
+import { ref, computed, inject } from "vue";
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+const { state, dispatch } = inject("store");
+
+const current = ref({
+  currentDay: DAYS[new Date().getDay()],
+  currentDate: new Date().getDate(),
+  currentMonth: new Date().getMonth(),
+  currentYear: new Date().getFullYear(),
+});
+
+const isCurrentMonthAndYear = computed(
+  () =>
+    state.value.date.str.getMonth() === current.value.currentMonth &&
+    state.value.date.str.getFullYear() === current.value.currentYear
+);
+
+console.log(state.value.dateGrid);
 </script>
 
 <template>
   <div class="calendar-grid">
     <div class="days-grid">
-      <div v-for="(day, index) in DAYS" :key="index" class="day" :title="day">
+      <div
+        v-for="(day, index) in DAYS"
+        :key="index"
+        :class="['day', { today: day === current.currentDay && isCurrentMonthAndYear }]"
+        :title="day"
+      >
         {{ day[0] }}
       </div>
     </div>
 
     <div class="date-grid">
-      <div class="date" v-for="date in 31">
-        <div class="val">{{ date }}</div>
+      <div class="date" v-for="date in state.dateGrid" :key="date.id">
+        <div :class="['val', { today: date.dt === current.currentDate && isCurrentMonthAndYear }]" v-if="date.dt">
+          {{ date.dt }}
+        </div>
+        <div v-else></div>
       </div>
     </div>
   </div>
@@ -24,6 +50,7 @@ const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   display: grid;
   gap: 20px;
   user-select: none;
+  color: var(--blue);
   .days-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -32,8 +59,9 @@ const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     .day {
       text-align: center;
       font-weight: bold;
+      color: var(--blue);
       &.today {
-        color: blueviolet;
+        color: var(--red);
       }
     }
   }
@@ -50,14 +78,16 @@ const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       .val {
         width: 20px;
         height: 20px;
-        text-align: center;
-        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 15px;
         position: relative;
-        background-color: antiquewhite;
+        &.today {
+          text-align: center;
+          border-radius: 50%;
+          background-color: var(--red);
+        }
       }
     }
   }
