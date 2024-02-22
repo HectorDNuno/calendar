@@ -12,7 +12,8 @@ import CalendarGrid from "./CalendarGrid.vue";
 
 <style scoped lang="less">
 main {
-  width: 500px;
+  min-width: 31.25rem;
+  min-height: 32rem;
   padding-bottom: 30px;
   border-radius: 5px;
   background-color: var(--secondary);
