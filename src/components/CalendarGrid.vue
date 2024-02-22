@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed, inject } from "vue";
+import { ref, computed, inject, onMounted } from "vue";
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const { state, dispatch } = inject("store");
+const state = inject("store");
 
 const current = ref({
   currentDay: DAYS[new Date().getDay()],
@@ -13,11 +13,18 @@ const current = ref({
 
 const isCurrentMonthAndYear = computed(
   () =>
-    state.value.date.str.getMonth() === current.value.currentMonth &&
-    state.value.date.str.getFullYear() === current.value.currentYear
+    state.state.value.date.str.getMonth() === current.value.currentMonth &&
+    state.state.value.date.str.getFullYear() === current.value.currentYear
 );
 
-console.log(state.value.dateGrid);
+onMounted(() => {
+  state.dispatch({
+    type: "updateDateGrid",
+    payload: { date: { str: new Date(), dateString: new Date().toDateString() } },
+  });
+});
+
+console.log(state.state.value.date.dateString);
 </script>
 
 <template>
@@ -34,7 +41,7 @@ console.log(state.value.dateGrid);
     </div>
 
     <div class="date-grid">
-      <div class="date" v-for="date in state.dateGrid" :key="date.id">
+      <div class="date" v-for="date in state.state.value.dateGrid" :key="date.id">
         <div :class="['val', { today: date.dt === current.currentDate && isCurrentMonthAndYear }]" v-if="date.dt">
           {{ date.dt }}
         </div>
